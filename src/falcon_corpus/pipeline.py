@@ -156,6 +156,7 @@ def process_doc(d: readers.RawDoc, cfg: Config) -> dict:
     key = normalize.match_key(text)
     rec = {**base, "status": "candidate", "lang": lg.lang, "text": text, "edits": ",".join(edits),
            "kh": hashlib.sha1(key.encode("utf-8")).hexdigest()[:24], "dg": digit_signature(key),
+           "rh": hashlib.sha1(d.text.encode("utf-8", "surrogatepass")).hexdigest()[:24],
            "sig": minhash.sig_to_str(minhash.signature(key)), "script": translit.script_of(text)}
     sk = translit.skeleton(text)
     if len(sk) >= cfg.translit_min_len:
@@ -272,6 +273,8 @@ def select_eval(work, plan, cfg: Config) -> tuple[list[dict], dict]:
     not eaten by its own eval set) takes the best-ranked items of each heap.
     """
     langs = ("hi", "hi-Latn")
+    if cfg.eval_size <= 0:                     # eval disabled
+        return [], {"eligible": {}, "quota": {"hi": 0, "hi-Latn": 0}}
     heaps = {k: [] for k in langs}             # max-heap via negated rank
     in_heap = {k: {} for k in langs}
     eligible = Counter()
@@ -287,7 +290,7 @@ def select_eval(work, plan, cfg: Config) -> tuple[list[dict], dict]:
         rank = int(hashlib.sha1(f"{cfg.eval_seed}|{r['kh']}".encode()).hexdigest()[:15], 16)
         h = heaps[lang]
         entry = (-rank, -order, r)             # `order` is unique, so records are never compared
-        if len(h) < cfg.eval_size:
+        if len(h) < 2 * cfg.eval_size:         # 2x slack: candidates that are twins of an earlier pick are skipped below
             heapq.heappush(h, entry); in_heap[lang][r["kh"]] = True
         elif rank < -h[0][0]:                  # root = largest rank currently selected
             evicted = heapq.heapreplace(h, entry)
@@ -295,13 +298,90 @@ def select_eval(work, plan, cfg: Config) -> tuple[list[dict], dict]:
     want_hi = round(cfg.eval_size * cfg.eval_hi_share)
     quota = {"hi": want_hi, "hi-Latn": cfg.eval_size - want_hi}
     quota = {k: min(q, int(eligible[k] * cfg.eval_max_fraction)) for k, q in quota.items()}
-    chosen = []
+    # Greedy in rank order, skipping any candidate that is a copy (any of the four leak methods) of an
+    # item already chosen: the eval set must not contain the same text twice, e.g. a Devanagari sentence
+    # AND its romanisation.
+    chosen, twins = [], 0
+    index = EvalIndex([], cfg)
     for lang in langs:
-        items = sorted(heaps[lang], key=lambda t: (-t[0], -t[1]))   # ascending rank
-        chosen += [t[2] for t in items[:quota[lang]]]
+        taken = 0
+        for t in sorted(heaps[lang], key=lambda t: (-t[0], -t[1])):      # ascending rank
+            if taken >= quota[lang]:
+                break
+            r = t[2]
+            r["eval_id"] = f"cand-{-t[1]}"
+            if index.check(r)[0]:
+                twins += 1
+                continue
+            index.add(r); chosen.append(r); taken += 1
     for i, r in enumerate(chosen):
         r["eval_id"] = f"eval-{i + 1:04d}"
-    return chosen, {"eligible": dict(eligible), "quota": quota}
+    return chosen, {"eligible": dict(eligible), "quota": quota, "skipped_as_twins_of_earlier_picks": twins}
+
+
+class EvalIndex:
+    """Finds training documents that leak eval items.
+
+    Methods, strongest first:
+      exact       raw text byte-identical
+      normalized  raw text differs, identical after normalisation (match key)
+      near        MinHash Jaccard >= contam_threshold OR character similarity >= contam_char_sim,
+                  and the SAME numbers ("10 minutes" is not a copy of "20 minutes")
+      translit    same text in the other script (Devanagari <-> Latin): consonant-skeleton Jaccard
+                  >= translit_threshold, cross-script pairs only
+    """
+
+    def __init__(self, ev: list[dict], cfg: Config):
+        self.cfg = cfg
+        self.by_eid, self.raw, self.key = {}, {}, {}
+        self.lsh, self.tlsh = minhash.LSHIndex(), minhash.LSHIndex()
+        for r in ev:
+            self.add(r)
+
+    def add(self, r: dict) -> None:
+        self.by_eid[r["eval_id"]] = r
+        self.raw[r["rh"]] = r
+        self.key[r["kh"]] = r
+        self.lsh.add(r["eval_id"], minhash.sig_from_str(r["sig"]))
+        if "tsig" in r:
+            self.tlsh.add(r["eval_id"], minhash.sig_from_str(r["tsig"]))
+
+    def check(self, r: dict) -> tuple[dict[str, tuple[str, float]], list[tuple]]:
+        """-> ({eval_id: (strongest method, similarity)}, rejected near candidates for review)."""
+        cfg = self.cfg
+        hits: dict[str, tuple[str, float]] = {}
+        rejected: list[tuple] = []
+
+        def note(eid, method, sim):
+            if eid not in hits or _METHOD_RANK[method] < _METHOD_RANK[hits[eid][0]]:
+                hits[eid] = (method, sim)
+
+        if r["rh"] in self.raw:
+            note(self.raw[r["rh"]]["eval_id"], "exact", 1.0)
+        if r["kh"] in self.key:
+            note(self.key[r["kh"]]["eval_id"], "normalized", 1.0)
+        sig = minhash.sig_from_str(r["sig"])
+        cands = self.lsh.query(sig, cfg.near_log_floor)
+        rkey = normalize.match_key(r["text"]) if cands else ""
+        for eid, sm in cands:
+            e = self.by_eid[eid]
+            if e["dg"] != r["dg"]:
+                rejected.append((eid, r["id"], "near", sm, "digits_differ"))
+                continue
+            cs = char_similarity(normalize.match_key(e["text"]), rkey)
+            if sm >= cfg.contam_threshold or cs >= cfg.contam_char_sim:
+                note(eid, "near", sm if sm >= cfg.contam_threshold else cs)
+            else:
+                rejected.append((eid, r["id"], "near", sm, "below_threshold"))
+        if "tsig" in r and len(self.tlsh):
+            for eid, sm in self.tlsh.query(minhash.sig_from_str(r["tsig"]), cfg.near_log_floor):
+                if self.by_eid[eid]["script"] == r["script"]:
+                    continue                           # same script: the methods above already cover it
+                if sm >= cfg.translit_threshold:
+                    note(eid, "translit", sm)
+                else:
+                    rejected.append((eid, r["id"], "translit", sm, "below_threshold"))
+        return hits, rejected
 
 
 class _Writer:
@@ -324,20 +404,13 @@ class _Writer:
             self.files.append(p); self.part += 1; self.buf = []
 
 
-def pass2(work: str, plan: list[dict], tmp_out: str, cfg: Config, crash_in_pass2: bool) -> dict:
+def pass2(work: str, plan: list[dict], tmp_out: str, cfg: Config, crash_in_pass2: int) -> dict:
     ev, ev_info = select_eval(work, plan, cfg)
     ev_by_id = {r["id"]: r for r in ev}
     _log(f"eval carve: {len(ev)} items ({dict(Counter(r['lang'] for r in ev))}); eligible docs {ev_info['eligible']}")
 
-    # indices over the eval set
-    ev_exact = {r["text"]: r for r in ev}
-    ev_key = {r["kh"]: r for r in ev}
-    ev_lsh, ev_tlsh = minhash.LSHIndex(), minhash.LSHIndex()
-    for r in ev:
-        ev_lsh.add(r["eval_id"], minhash.sig_from_str(r["sig"]))
-        if "tsig" in r:
-            ev_tlsh.add(r["eval_id"], minhash.sig_from_str(r["tsig"]))
-    ev_by_eid = {r["eval_id"]: r for r in ev}
+    eval_index = EvalIndex(ev, cfg)
+    ev_by_eid = eval_index.by_eid
 
     seen_kh: dict[str, str] = {}
     kept_dg: dict[str, str] = {}
@@ -368,7 +441,7 @@ def pass2(work: str, plan: list[dict], tmp_out: str, cfg: Config, crash_in_pass2
     n_seen = 0
     for r in iter_pass1(work, plan):
         n_seen += 1
-        if crash_in_pass2 and n_seen == 5000:
+        if crash_in_pass2 and n_seen == crash_in_pass2:
             _log("fault injection: simulated crash inside pass 2")
             os._exit(137)
         if r["status"] == "dropped":
@@ -379,39 +452,9 @@ def pass2(work: str, plan: list[dict], tmp_out: str, cfg: Config, crash_in_pass2
             continue
 
         # ---- contamination vs eval ------------------------------------------
-        hits: dict[str, tuple[str, float]] = {}       # eval_id -> (strongest method, sim)
-
-        def note(eid, method, sim):
-            if eid not in hits or _METHOD_RANK[method] < _METHOD_RANK[hits[eid][0]]:
-                hits[eid] = (method, sim)
-
-        if r["text"] in ev_exact:
-            note(ev_exact[r["text"]]["eval_id"], "exact", 1.0)
-        if r["kh"] in ev_key:
-            e = ev_key[r["kh"]]
-            note(e["eval_id"], "exact" if e["text"] == r["text"] else "normalized", 1.0)
+        hits, rejected = eval_index.check(r)
+        contam_near_miss.extend(rejected)
         sig = minhash.sig_from_str(r["sig"])
-        ev_cands = ev_lsh.query(sig, cfg.near_log_floor)
-        rkey = normalize.match_key(r["text"]) if ev_cands else ""
-        for eid, sm in ev_cands:
-            e = ev_by_eid[eid]
-            if e["dg"] != r["dg"]:
-                contam_near_miss.append((eid, r["id"], "near", sm, "digits_differ"))
-                continue
-            cs = char_similarity(normalize.match_key(e["text"]), rkey)
-            if sm >= cfg.contam_threshold or cs >= cfg.contam_char_sim:
-                note(eid, "near", max(sm, cs) if sm < cfg.contam_threshold else sm)
-            else:
-                contam_near_miss.append((eid, r["id"], "near", sm, "below_threshold"))
-        if "tsig" in r and len(ev_tlsh):
-            tsig = minhash.sig_from_str(r["tsig"])
-            for eid, s in ev_tlsh.query(tsig, cfg.near_log_floor):
-                if ev_by_eid[eid]["script"] == r["script"]:
-                    continue                           # same script: other methods already cover it
-                if s >= cfg.translit_threshold:
-                    note(eid, "translit", s)
-                else:
-                    contam_near_miss.append((eid, r["id"], "translit", s, "below_threshold"))
         if hits:
             eid, (method, sim) = min(hits.items(), key=lambda kv: (_METHOD_RANK[kv[1][0]], -kv[1][1], kv[0]))
             for e2, (m2, s2) in hits.items():
@@ -515,7 +558,7 @@ def run(raw_dir: str, out_dir: str, cfg: Config) -> int:
     _log(f"{len(plan)} input file(s), code {chash[:10]}, fingerprint {fingerprint[:10]}")
 
     crash_after = int(os.environ["FALCON_CRASH_AFTER_CHUNKS"]) if os.environ.get("FALCON_CRASH_AFTER_CHUNKS") else None
-    crash_p2 = bool(os.environ.get("FALCON_CRASH_IN_PASS2"))
+    crash_p2 = int(os.environ.get("FALCON_CRASH_IN_PASS2", "0") or 0)    # crash after this many records in pass 2
     p1 = pass1(raw_dir, plan, work, cfg, crash_after)
 
     tmp_out = os.path.join(out_dir, "_tmp_final")

@@ -59,12 +59,11 @@ def _from_devanagari(s: str) -> str:
 
 
 def _latin_word(w: str) -> str:
-    w = re.sub(r"ch", "C", w)                # ch -> c
+    w = re.sub(r"chh?", "C", w)              # ch / chh -> c
     w = re.sub(r"sh", "s", w)
     w = re.sub(r"([kgjtdpb])h", r"\1", w)   # aspirates (inside a word only: 'ek hai' must stay k,h)
     w = w.replace("c", "k").replace("C", "c").replace("q", "k").replace("x", "ks")
     w = w.replace("w", "v").replace("z", "j").replace("f", "p")
-    w = re.sub(r"y(?![aeiou])", "", w)       # y after a vowel/at end is a vowel sound ("hay")
     return "".join(c for c in w if c not in "aeiou")
 
 

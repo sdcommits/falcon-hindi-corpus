@@ -37,8 +37,8 @@ DUP_LINE_MIN_LINES = 8
 DUP_LINE_RATIO = 0.7
 SYMBOL_RATIO = 0.3
 SPAM_HITS = 2
-BOILERPLATE_LINE_MAX = 80     # two+ boilerplate phrases in a line this short
 BOILERPLATE_COVER = 0.4       # share of the line covered by boilerplate phrases
+BOILERPLATE_COVER_MULTI = 0.25  # ... when two DIFFERENT boilerplate phrases are present
 
 _FFFD = "�"
 _MOJI = re.compile(r"(?:à¤|à¥|Ã.|â€)")
@@ -94,7 +94,8 @@ def _is_boiler_line(line: str) -> bool:
     if not hits:
         return False
     covered = sum(len(h) for h in hits) / max(1, len(line.strip()))
-    return covered >= BOILERPLATE_COVER or (len(hits) >= 2 and len(line) <= 2 * BOILERPLATE_LINE_MAX)
+    distinct = len({h.casefold() for h in hits})
+    return covered >= BOILERPLATE_COVER or (distinct >= 2 and covered >= BOILERPLATE_COVER_MULTI)
 
 
 def check(text: str) -> tuple[str | None, str, list[str]]:
@@ -104,12 +105,6 @@ def check(text: str) -> tuple[str | None, str, list[str]]:
         return "empty", text, flags
     if n > MAX_CHARS:
         return "too_long", text, flags
-
-    alnum = sum(1 for ch in text if ch.isalnum() or unicodedata.category(ch)[0] == "M")
-    if alnum < MIN_ALNUM:
-        return "no_content", text, flags
-    if _PLACEHOLDER.match(text.strip()):
-        return "placeholder", text, flags
 
     # ---- garbled encoding ----------------------------------------------------
     fffd = text.count(_FFFD)
@@ -122,6 +117,12 @@ def check(text: str) -> tuple[str | None, str, list[str]]:
         bad = len(_BAD_DEV.findall(text))
         if bad >= BAD_DEV_MIN and bad / dev_letters >= BAD_DEV_RATIO:
             return "garbled_encoding", text, flags
+
+    if _PLACEHOLDER.match(text.strip()):
+        return "placeholder", text, flags
+    alnum = sum(1 for ch in text if ch.isalnum() or unicodedata.category(ch)[0] == "M")
+    if alnum < MIN_ALNUM:
+        return "no_content", text, flags
 
     # ---- markup / code -------------------------------------------------------
     tags, tag_chars = _count_tags(text)
