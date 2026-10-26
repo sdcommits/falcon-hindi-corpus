@@ -181,7 +181,10 @@ def pass1(raw_dir: str, plan: list[dict], work: str, cfg: Config, crash_after: i
     pool = None
     if cfg.workers > 1:
         import multiprocessing as mp
-        pool = mp.get_context("fork").Pool(cfg.workers)
+        if "fork" in mp.get_all_start_methods():
+            pool = mp.get_context("fork").Pool(cfg.workers)
+        else:  # e.g. Windows: no fork; run serially (output is identical by design)
+            print("[falcon] 'fork' unavailable on this platform: running pass 1 with 1 worker", file=sys.stderr)
     cfgd = dataclasses.asdict(cfg)
     chunks_written = 0
     try:
