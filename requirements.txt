@@ -1,0 +1,3 @@
+numpy>=2.0,<3
+# optional: only needed if a raw input is .parquet
+pyarrow>=15
