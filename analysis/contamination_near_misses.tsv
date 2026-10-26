@@ -1,0 +1,137 @@
+method	sim	why_rejected	eval_id	doc_id	eval_text	doc_text
+near	0.805	digits_differ	eval-0153	1884518653b152b3	10 minutes ke liye timer set kardo	70 minutes ke liye timer set kare
+near	0.805	digits_differ	eval-0153	31c9967e5e8df2ba	10 minutes ke liye timer set kardo	20 minutes ke liye timer set kare
+near	0.805	digits_differ	eval-0153	4ad84759477baa50	10 minutes ke liye timer set kardo	20 minutes ke liye timer set kare
+near	0.805	digits_differ	eval-0153	6e9b98e21e5d995d	10 minutes ke liye timer set kardo	20 minutes ke liye timer set kare
+near	0.805	digits_differ	eval-0153	6ec6bdffa1477364	10 minutes ke liye timer set kardo	20 minutes ke liye timer set kare
+near	0.805	digits_differ	eval-0153	c4cb31961b40397a	10 minutes ke liye timer set kardo	20 minutes ke liye timer set kare
+near	0.773	digits_differ	eval-0153	415485aa75b3cab0	10 minutes ke liye timer set kardo	20 minutes ke liye timer set karen
+near	0.773	digits_differ	eval-0153	6f9ee46e1e012add	10 minutes ke liye timer set kardo	30 minutes ke liye timer set kare
+near	0.773	digits_differ	eval-0153	eb8c306f00c7c53d	10 minutes ke liye timer set kardo	20 minutes ke liye timer set karen.
+near	0.758	digits_differ	eval-0153	20a3ed5125c59e50	10 minutes ke liye timer set kardo	2 minutes ke liye timer set kare
+near	0.758	digits_differ	eval-0153	85e7c553ce06bd58	10 minutes ke liye timer set kardo	2 minutes ke liye timer set kare
+near	0.750	digits_differ	eval-0153	e0b127405cd0146e	10 minutes ke liye timer set kardo	13 MINUTES KE LIYE TIMER SET KARE
+near	0.734	digits_differ	eval-0153	e91ce647e3605ce8	10 minutes ke liye timer set kardo	5 minutes ke liye timer set kare.
+near	0.727	digits_differ	eval-0153	a33249d840bf7dab	10 minutes ke liye timer set kardo	27 minutes ke liye timer set kare
+near	0.727	digits_differ	eval-0153	ad469728b8ccbbd9	10 minutes ke liye timer set kardo	27 minutes ke liye timer set kare
+near	0.719	digits_differ	eval-0153	0b988f35defffa88	10 minutes ke liye timer set kardo	45 minutes ke liye timer set karo
+near	0.703	digits_differ	eval-0153	20f10013286d6aec	10 minutes ke liye timer set kardo	45 minutes ke liye timer set karen
+near	0.695	below_threshold	eval-0135	020ecafc0e181d93	sunrise ka time kya he	Kal subah sunrise ka time kya he
+near	0.695	digits_differ	eval-0153	224c02dc1a6aaebd	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.695	digits_differ	eval-0153	4dad285181fa9008	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.695	digits_differ	eval-0153	579d4ec6f0d732bf	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.695	digits_differ	eval-0153	73ffadd3dbc716df	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.695	digits_differ	eval-0153	93d68a7a8977a8ca	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.695	digits_differ	eval-0153	f61878887a2dcd10	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.695	digits_differ	eval-0153	fa77602e9f869336	10 minutes ke liye timer set kardo	15 minutes ke liye timer set kare
+near	0.672	digits_differ	eval-0153	af2d8195f21eedc7	10 minutes ke liye timer set kardo	15 minutes ke liye timer set karen
+near	0.664	digits_differ	eval-0153	37c4c953230c9a0d	10 minutes ke liye timer set kardo	25 minutes ke liye timer set kare
+near	0.664	digits_differ	eval-0153	d637a7a91ba2f38c	10 minutes ke liye timer set kardo	25 minutes ke liye timer set kare
+near	0.656	below_threshold	eval-0192	0b1b75a456cff875	dinner timer ko band karo.	timer ko band karo
+near	0.656	below_threshold	eval-0192	7f33892bc26aaac4	dinner timer ko band karo.	timer ko band karo
+near	0.656	below_threshold	eval-0192	9a4670e4443fd440	dinner timer ko band karo.	timer ko band karo
+near	0.656	below_threshold	eval-0192	a30ec06146d0b4ae	dinner timer ko band karo.	timer ko band karo
+near	0.656	below_threshold	eval-0192	be353764e2377a6a	dinner timer ko band karo.	timer ko band karo
+near	0.656	below_threshold	eval-0196	f267db52bb7ac6b1	timer par kitna samay bach hai	baking timer par kitna samay bacha hai
+near	0.648	digits_differ	eval-0153	14a031c7249171b2	10 minutes ke liye timer set kardo	30 minutes ke liye timer set kijiye.
+near	0.648	digits_differ	eval-0153	b995ae4a605f730c	10 minutes ke liye timer set kardo	30 minutes ke liye timer set kijiye.
+near	0.648	digits_differ	eval-0153	faefa1a702f203b1	10 minutes ke liye timer set kardo	30 minutes ke liye timer set kijiye.
+near	0.648	digits_differ	eval-0174	dd6f89f1f4c32a9b	please subah 5 baje ka alarm set kare	please subah 3 baje ka alarm set kare
+near	0.641	below_threshold	eval-0123	e55c5424a2c23baa	Spotify par aaj ke top hits bajao	Please Spotify par aaj ke Top Hits
+near	0.633	digits_differ	eval-0139	f774ec90f4eb8257	subah 4 baje ke liye alarm set kardo	raat 10 baje ke liye alarm set kardo
+near	0.633	below_threshold	eval-0182	22b2fe508c07692e	last alarm ko delete karo	alarm ko delete kare
+near	0.633	below_threshold	eval-0182	7fd4aa91aaf503de	last alarm ko delete karo	alarm ko delete kare
+near	0.633	below_threshold	eval-0182	ce9aa9b31d128da2	last alarm ko delete karo	alarm ko delete kare
+near	0.625	below_threshold	eval-0156	35e3c81baf04982c	Is week me kya baarish hone wali hai?	kya baarish hone wali hai
+near	0.625	below_threshold	eval-0156	58ae6e2b1338da1a	Is week me kya baarish hone wali hai?	kya baarish hone wali hai
+near	0.625	below_threshold	eval-0156	ee1c97c5ab1dc730	Is week me kya baarish hone wali hai?	kya baarish hone wali hai
+near	0.617	digits_differ	eval-0139	2a5df634db3502c1	subah 4 baje ke liye alarm set kardo	subah 11 baje ke liye alarm set kardo
+near	0.617	digits_differ	eval-0139	39add91cbc5f27ba	subah 4 baje ke liye alarm set kardo	subah 11 baje ke liye alarm set kardo
+near	0.617	digits_differ	eval-0139	5d6793201c735909	subah 4 baje ke liye alarm set kardo	subah 11 baje ke liye alarm set kardo
+near	0.609	digits_differ	eval-0139	c225df3e28453737	subah 4 baje ke liye alarm set kardo	Kal subah 7 baje ke liye alarm set kare
+near	0.602	below_threshold	eval-0138	8e1e97c0a0131ddf	Sat night ke liye mere reminders padhen	Mujhe aaj ke liye mere reminders padhen
+near	0.602	digits_differ	eval-0153	53839a461c09fe4a	10 minutes ke liye timer set kardo	45 minutes ke liye timer set kijiye.
+near	0.602	digits_differ	eval-0153	5a124e9ee828f554	10 minutes ke liye timer set kardo	45 minutes ke liye timer set kijiye.
+near	0.594	digits_differ	eval-0153	eafe65a29fa1e92c	10 minutes ke liye timer set kardo	fifteen minutes ke liye timer set kare
+near	0.594	digits_differ	eval-0153	edec4ecb1f52db27	10 minutes ke liye timer set kardo	fifteen minutes ke liye timer set kare
+near	0.586	digits_differ	eval-0139	2f0030da33eda0fc	subah 4 baje ke liye alarm set kardo	subah 5 baje ke liye alarm set karo
+near	0.586	digits_differ	eval-0139	323e24fb5e9cbff8	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set karo
+near	0.586	digits_differ	eval-0139	40c1ac8e21dd077a	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set karo
+near	0.586	digits_differ	eval-0139	59487e5d7d7a75cf	subah 4 baje ke liye alarm set kardo	kal sham 5 baje ke liye alarm set kardo
+near	0.586	digits_differ	eval-0139	8afeafc2c6f27fb4	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set karo
+near	0.586	digits_differ	eval-0139	b515130f3868e665	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set karo
+near	0.586	below_threshold	eval-0168	375db5e773544983	Orlando se Louisville tak jaane ka sabse sundar rasta konsa hai	Orlando se Louisville tak jaane ka sabse slow rasta kya hai?
+near	0.586	below_threshold	eval-0196	a427ae4fe58ffc72	timer par kitna samay bach hai	mere pas timer par kitna samay bacha hai
+near	0.586	below_threshold	eval-0196	f6f019f4ce6934f1	timer par kitna samay bach hai	mere pas timer par kitna samay bacha hai?
+near	0.578	digits_differ	eval-0139	1a9a0500510060da	subah 4 baje ke liye alarm set kardo	Kal subah 10 baje ke liye alarm set kare
+near	0.578	digits_differ	eval-0139	92b7585eeb38fc14	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set kare
+near	0.578	digits_differ	eval-0139	9bced1f61f474996	subah 4 baje ke liye alarm set kardo	Subah 6 baje ke liye alarm set kare
+near	0.578	digits_differ	eval-0139	efb4dc7e5192d54f	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set kare
+near	0.578	digits_differ	eval-0139	fe56e87cc177a1b6	subah 4 baje ke liye alarm set kardo	subah 6 baje ke liye alarm set kare
+near	0.578	below_threshold	eval-0196	1a8bc3a8ace30782	timer par kitna samay bach hai	mere second timer par kitna samay bacha hai
+near	0.570	digits_differ	eval-0122	819a92b158596c4b	Mere timer me ten minutes add kare	mere timer me 40 minutes add karen.
+near	0.570	digits_differ	eval-0122	a267d51fdb127848	Mere timer me ten minutes add kare	mere timer me 5 minutes add kare
+near	0.570	below_threshold	eval-0190	890a054621020403	dad ke liye mera reminder kya hai?	mujhe dad ke liye mera reminder dikhao
+near	0.562	digits_differ	eval-0182	34652d84b1e75539	last alarm ko delete karo	7 pm ke alarm ko delete karo
+near	0.562	below_threshold	eval-0190	bccbf9b45ee9fc5f	dad ke liye mera reminder kya hai?	Mujhe dad ke liye mera reminder dilvao
+near	0.562	below_threshold	eval-0196	db6dde9b707dbcda	timer par kitna samay bach hai	current timer par kitna samay bacha hai?
+near	0.555	digits_differ	eval-0122	6caec32fd18cd13b	Mere timer me ten minutes add kare	mere timer mei 20 minutes add kare
+near	0.555	digits_differ	eval-0122	a5d68dbff0b87fa2	Mere timer me ten minutes add kare	mere timer mei 20 minutes add kare
+near	0.555	digits_differ	eval-0122	fa03038555822a09	Mere timer me ten minutes add kare	mere timer mei 20 minutes add kare
+near	0.555	digits_differ	eval-0139	41127edd92f9881b	subah 4 baje ke liye alarm set kardo	Kal subah 6 baje ke liye alarm set kare
+near	0.555	digits_differ	eval-0139	4a6ec56e7583ee96	subah 4 baje ke liye alarm set kardo	Kal subah 6 baje ke liye alarm set kare
+near	0.555	below_threshold	eval-0192	39f76e229f923167	dinner timer ko band karo.	Timer ko band kare
+near	0.555	below_threshold	eval-0192	3d6ff52046a9cffe	dinner timer ko band karo.	Timer ko band kare
+near	0.555	below_threshold	eval-0192	d8bd8c9f5039703a	dinner timer ko band karo.	Timer ko band kare
+near	0.555	below_threshold	eval-0196	62649b09f0ca3ec2	timer par kitna samay bach hai	most recent timer par kitna samay bacha hai
+near	0.555	below_threshold	eval-0196	b405864368dfd8fa	timer par kitna samay bach hai	mere timer par kitna samay baaki hai
+near	0.547	digits_differ	eval-0132	8a60aabb21fbae29	every Sunday 4:34 a. m ke liye alarm set kare	7 : 54 am ke liye alarm set kare
+near	0.547	digits_differ	eval-0139	4a79ff7cba4043db	subah 4 baje ke liye alarm set kardo	subah 5 : 30 baje ke liye alarm set karo
+near	0.547	below_threshold	eval-0196	f2131b5c952e351b	timer par kitna samay bach hai	mere paas apne timer par kitna samay bacha hai?
+near	0.539	digits_differ	eval-0139	3fc1925ee5072625	subah 4 baje ke liye alarm set kardo	kal subah 8 baje ke liye alarm set karo
+near	0.539	digits_differ	eval-0139	487087c6f3d291c5	subah 4 baje ke liye alarm set kardo	kal subah 8 baje ke liye alarm set karo
+near	0.539	digits_differ	eval-0139	777532e20eeaf1bd	subah 4 baje ke liye alarm set kardo	subha 3 baje ke liye alarm set karen
+near	0.539	digits_differ	eval-0139	a34d0ccf6c947638	subah 4 baje ke liye alarm set kardo	Subah 5:30 baje ke liye alarm set kare
+near	0.539	digits_differ	eval-0139	b40cf18a2d269638	subah 4 baje ke liye alarm set kardo	Subah 5:30 baje ke liye alarm set kare
+near	0.539	digits_differ	eval-0153	f8d9529d4800a5c5	10 minutes ke liye timer set kardo	kal sham 5 baje 20 minutes ke liye timer set kare
+near	0.531	digits_differ	eval-0122	70c6f707e07b1667	Mere timer me ten minutes add kare	mere timer me 15 minutes add karen
+near	0.531	digits_differ	eval-0122	fcc6c93a5d1493a1	Mere timer me ten minutes add kare	mere timer mei 6 minutes add kare
+near	0.531	digits_differ	eval-0139	311c518e2e8fa2fe	subah 4 baje ke liye alarm set kardo	Kal subah 6:00 baje ke liye alarm set kare
+near	0.531	digits_differ	eval-0139	5db0e5fd58d76441	subah 4 baje ke liye alarm set kardo	please subah 3 baje ke liye alarm set kare.
+near	0.531	digits_differ	eval-0139	b59dac69b614592d	subah 4 baje ke liye alarm set kardo	aaj sham 8 baje ke liye alarm set karo
+near	0.531	below_threshold	eval-0192	05f187c4f0178ed9	dinner timer ko band karo.	timer ko band kardo.
+near	0.531	below_threshold	eval-0192	0628bee7f7dccd5f	dinner timer ko band karo.	timer ko band kardo
+near	0.531	below_threshold	eval-0192	077324ca63035032	dinner timer ko band karo.	timer ko band kardo.
+near	0.531	below_threshold	eval-0192	9ca30e77af44bbad	dinner timer ko band karo.	timer ko band kardo
+near	0.531	below_threshold	eval-0192	ee3f4fe905f536b5	dinner timer ko band karo.	timer ko band kardo.
+near	0.531	below_threshold	eval-0192	f1d8527b860bc6b7	dinner timer ko band karo.	timer ko band kardo
+near	0.523	digits_differ	eval-0139	225f956f1fc56158	subah 4 baje ke liye alarm set kardo	subha 9:45 baje ke liye alarm set karen
+near	0.523	digits_differ	eval-0139	299d0c62a5832960	subah 4 baje ke liye alarm set kardo	Saturday subah 7 baje ke liye alarm set kare
+near	0.523	digits_differ	eval-0139	5753eca304a12248	subah 4 baje ke liye alarm set kardo	subha 5 baje ke liye alarm set karen
+near	0.523	digits_differ	eval-0139	a02cfa97541aff71	subah 4 baje ke liye alarm set kardo	subha 5 baje ke liye alarm set karen
+near	0.523	digits_differ	eval-0153	ca8d47da343d4c06	10 minutes ke liye timer set kardo	30 minutes ke liye timer banaye
+near	0.516	digits_differ	eval-0139	94217a2ed65c29c4	subah 4 baje ke liye alarm set kardo	Har subah 6 baje ke liye alarm set kare
+near	0.516	digits_differ	eval-0153	236ed5e723e8d247	10 minutes ke liye timer set kardo	30 minutes ke liye ek timer set kare
+near	0.516	digits_differ	eval-0153	57d2629196648424	10 minutes ke liye timer set kardo	30 minutes ke liye ek timer set kare
+near	0.516	digits_differ	eval-0153	a37dcd6417e8cd2a	10 minutes ke liye timer set kardo	30 minutes ke liye ek timer set kare
+near	0.516	digits_differ	eval-0153	b60ac92c706010d4	10 minutes ke liye timer set kardo	3 ghante me 20 minutes ke liye timer set kare.
+near	0.516	digits_differ	eval-0175	17a04afe1fedf207	kya aap mere alarm ko aur 5 minute ke liye snooze karsakte hai?	kya aap mere liye alarm ko ek ghante ke liye snooze karsakte hai
+near	0.508	digits_differ	eval-0132	262118eb925164b2	every Sunday 4:34 a. m ke liye alarm set kare	7 am ke liye alarm set kare
+near	0.508	digits_differ	eval-0132	5d6fba5ac9836f52	every Sunday 4:34 a. m ke liye alarm set kare	3 am ke liye alarm set kare
+near	0.508	digits_differ	eval-0139	1d90d92e5e30db57	subah 4 baje ke liye alarm set kardo	aaj sham 7 baje ke liye alarm set kare
+near	0.508	digits_differ	eval-0139	61cdc1d934d3a102	subah 4 baje ke liye alarm set kardo	har tuesday subah 6 baje ke liye alarm set kardo
+near	0.500	below_threshold	eval-0122	cb423fae9a24419a	Mere timer me ten minutes add kare	timer me dozen minutes add kare
+near	0.500	digits_differ	eval-0132	8ae3ae47f9cc7d3f	every Sunday 4:34 a. m ke liye alarm set kare	2 am ke liye alarm set kare
+near	0.500	digits_differ	eval-0132	c11641c32b5a4dc8	every Sunday 4:34 a. m ke liye alarm set kare	2 am ke liye alarm set kare
+near	0.500	digits_differ	eval-0132	f02e908c878b6bcc	every Sunday 4:34 a. m ke liye alarm set kare	2 : am ke liye alarm set kare
+near	0.500	digits_differ	eval-0139	132fbd016e285e35	subah 4 baje ke liye alarm set kardo	kal subha 6 baje ke liye alarm set karen
+near	0.500	digits_differ	eval-0139	22be0daec9118e32	subah 4 baje ke liye alarm set kardo	aaj raat 10 baje ke liye alarm set kare
+near	0.500	digits_differ	eval-0139	238a305f82015104	subah 4 baje ke liye alarm set kardo	kal subha 9 baje ke liye alarm set karen
+near	0.500	digits_differ	eval-0139	440205124caf7b6a	subah 4 baje ke liye alarm set kardo	kal subha 9 baje ke liye alarm set karen
+near	0.500	digits_differ	eval-0139	667d34abe9c455bb	subah 4 baje ke liye alarm set kardo	Kal subha 9 baje ke liye alarm set karen
+near	0.500	digits_differ	eval-0139	aab2545c6d34c514	subah 4 baje ke liye alarm set kardo	kal subha 9 baje ke liye alarm set karen
+near	0.500	digits_differ	eval-0153	26185df210c0bd78	10 minutes ke liye timer set kardo	das minute ke liye timer set kare
+near	0.500	digits_differ	eval-0153	2a85eee2f423534c	10 minutes ke liye timer set kardo	das minute ke liye timer set kare
+near	0.500	digits_differ	eval-0153	31632c38a6c2693a	10 minutes ke liye timer set kardo	60 minutes ke liye naya timer set kare
+near	0.500	digits_differ	eval-0153	6fc3094ceec221b0	10 minutes ke liye timer set kardo	2 hours ke liye aur 10 minutes ke liye timers set kare
+near	0.500	digits_differ	eval-0153	bd8999145278bb0c	10 minutes ke liye timer set kardo	das minute ke liye timer set kare
